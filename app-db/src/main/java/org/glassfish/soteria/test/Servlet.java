@@ -45,6 +45,8 @@ import java.io.IOException;
 import javax.annotation.security.DeclareRoles;
 import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +58,8 @@ import javax.servlet.http.HttpServletResponse;
  * 
  *
  */
+
+
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "java:global/MyDS",
         callerQuery = "select password from caller where name = ?",
@@ -70,6 +74,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @DeclareRoles({ "foo", "bar", "kaz" })
 @WebServlet("/servlet")
+@ServletSecurity(
+        @HttpConstraint(rolesAllowed = {"foo", "bar"}))
 public class Servlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
