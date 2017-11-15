@@ -43,6 +43,7 @@ package org.glassfish.soteria.test;
 import java.io.IOException;
 
 import javax.annotation.security.DeclareRoles;
+import javax.security.enterprise.authentication.mechanism.http.BasicAuthenticationMechanismDefinition;
 import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
@@ -58,7 +59,9 @@ import javax.servlet.http.HttpServletResponse;
  * 
  *
  */
-
+@BasicAuthenticationMechanismDefinition(
+        realmName = "Test Realm"
+)
 
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "java:global/MyDS",
